@@ -6,20 +6,23 @@ string connectionString =
                         "Data Source=(local); Database=MinionsDB; Integrated Security=true; TrustServerCertificate=True";
 
 string queryString =
-                    @"SELECT v.Name, COUNT(mv.VillainId) AS MinionsCount  
-                        FROM Villains AS v 
-                        JOIN MinionsVillains AS mv ON v.Id = mv.VillainId 
-                    GROUP BY v.Id, v.Name 
-                      HAVING COUNT(mv.VillainId) > @paramValue
-                    ORDER BY COUNT(mv.VillainId)";
+                    @"SELECT Name FROM Villains WHERE Id = @Id
 
-int paramValue = 3;
+                     SELECT ROW_NUMBER() OVER (ORDER BY m.Name) AS RowNum,
+                                         m.Name, 
+                                         m.Age
+                                    FROM MinionsVillains AS mv
+                                    JOIN Minions As m ON mv.MinionId = m.Id
+                                   WHERE mv.VillainId = @Id
+                                ORDER BY m.Name";
+
+int paramValue = 1;
 
 using (SqlConnection connection =
     new SqlConnection(connectionString))
 {
     SqlCommand command = new SqlCommand(queryString, connection);
-    command.Parameters.AddWithValue("@paramValue", paramValue);
+    command.Parameters.AddWithValue("@Id", paramValue);
 
     try
     {
@@ -38,4 +41,4 @@ using (SqlConnection connection =
     Console.ReadLine();
 
 
-}   
+}
