@@ -17,8 +17,9 @@ public class StartUp
         StringBuilder output = new StringBuilder();
 
         var projects = context.Projects
-            .OrderBy(p => p.Name)
+            .OrderByDescending(p => p.StartDate)
             .Take(10)
+            .OrderBy(p => p.Name)
             .Select(p => new
             {
                p.Name,
