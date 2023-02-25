@@ -16,6 +16,8 @@ public class StartUp
         StringBuilder output = new StringBuilder();
 
         var employees = context.Employees
+            .OrderBy(e => e.FirstName)
+            .ThenBy(e => e.LastName)
             .Where(e => e.Department.Name == "Engineering" || 
                         e.Department.Name == "Tool Design" || 
                         e.Department.Name == "Marketing" || 
@@ -29,8 +31,7 @@ public class StartUp
 
         context.SaveChanges();
 
-        foreach ( var e in employees.OrderBy(e => e.FirstName)
-                                    .ThenBy(e => e.LastName)) 
+        foreach ( var e in employees) 
         {
             output.AppendLine($"{e.FirstName} {e.LastName} (${e.Salary:f2})");
         }
