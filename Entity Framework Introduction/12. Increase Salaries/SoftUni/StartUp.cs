@@ -16,27 +16,21 @@ public class StartUp
         StringBuilder output = new StringBuilder();
 
         var employees = context.Employees
-            .Where(e => e.Department.Name == "Engineering" || e.Department.Name == "Tool Design" || e.Department.Name == "Marketing" || e.Department.Name == "Information Services")
-            .OrderBy(e => e.FirstName)
-            .ThenBy(e => e.LastName)
-            .Select(e => new
-            {
-                e.FirstName,
-                e.LastName,
-                //e.Salary
-               Salary = e.Salary * 1.12m
-
-            })
+            .Where(e => e.Department.Name == "Engineering" || 
+                        e.Department.Name == "Tool Design" || 
+                        e.Department.Name == "Marketing" || 
+                        e.Department.Name == "Information Services")
             .ToArray();
 
-        //foreach (var employee in employees)
-        //{
-        //    employee.Salary *= 1.12m;
-        //}
+        foreach (var employee in employees)
+        {
+            employee.Salary *= 1.12m;
+        }
 
-        //context.SaveChanges();
+        context.SaveChanges();
 
-        foreach ( var e in employees) 
+        foreach ( var e in employees.OrderBy(e => e.FirstName)
+                                    .ThenBy(e => e.LastName)) 
         {
             output.AppendLine($"{e.FirstName} {e.LastName} (${e.Salary:f2})");
         }
