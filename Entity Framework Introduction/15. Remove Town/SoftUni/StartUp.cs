@@ -10,46 +10,36 @@ public class StartUp
     static void Main(string[] args)
     {
         SoftUniContext dbContext = new SoftUniContext();
-        Console.WriteLine(DeleteProjectById(dbContext));
+        Console.WriteLine(RemoveTown(dbContext));
     }
 
-    public static string DeleteProjectById(SoftUniContext context)
+    public static string RemoveTown(SoftUniContext context)
     {
-        StringBuilder output = new StringBuilder();
+        Town townToRemove = context.Towns.Where(t => t.Name == "Seattle").FirstOrDefault()!;
 
-        int[] addressIdToRemove = context.Addresses
-              .Where(a => a.TownId == 4)
-              .Select(a => a.AddressId)
-              .ToArray();
+        List<Address> addressesToRemove = context.Addresses
+              .Where(a => a.TownId == townToRemove.TownId)
+              .ToList();
+
+        int[] addressesToRemoveIds = addressesToRemove.Select(a => a.AddressId).ToArray();
 
         var employees = context.Employees
-            .Where(e => addressIdToRemove.Contains((int)e.AddressId!))
+            .Where(e => addressesToRemoveIds.Contains((int)e.AddressId!))
             .ToArray();
 
-        foreach ( var employee in employees )
+        foreach (var employee in employees)
         {
             employee.AddressId = null;
         }
 
 
-        context.EmployeesProjects.RemoveRange(employeeProjectsToRemove);
+        context.Addresses.RemoveRange(addressesToRemove);
 
-        Project projectsToRemove = context.Projects.Find(2)!;
-
-        context.Projects.Remove(projectsToRemove);
+        context.Towns.Remove(townToRemove);
 
         context.SaveChanges();
 
-        var projects = context.Projects
-            .Take(10)
-            .ToArray();
-
-        foreach ( var p in projects) 
-        {
-            output.AppendLine(p.Name);
-        }
-
-        return output.ToString().TrimEnd();
+        return $"{addressesToRemove.Count()} addresses in Seattle were deleted";
     }
 }
 
