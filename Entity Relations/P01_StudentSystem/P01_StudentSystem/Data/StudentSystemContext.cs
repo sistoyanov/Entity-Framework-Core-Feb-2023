@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using P01_StudentSystem.Models;
+using P01_StudentSystem.Data.Models;
 
 namespace P01_StudentSystem.Data;
 
