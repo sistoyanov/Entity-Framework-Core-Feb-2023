@@ -1,12 +1,10 @@
 ﻿namespace MusicHub;
 
 using System;
-using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 using Data;
 using Initializer;
-using MusicHub.Data.Models;
 
 public class StartUp
 {
