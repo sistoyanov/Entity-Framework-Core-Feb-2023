@@ -39,7 +39,7 @@ public class FootballBettingContext : DbContext
     {
         if (!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseSqlServer("Server=.;Database=StudentSystem;Integrated Security=True;TrustServerCertificate=true");
+            optionsBuilder.UseSqlServer("Server=.;Database=FootballBetting;Integrated Security=True;TrustServerCertificate=true");
         }
 
         base.OnConfiguring(optionsBuilder);
