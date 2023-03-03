@@ -19,7 +19,17 @@ public class StudentSystemContext : DbContext
 	public virtual DbSet<Student> Students { get; set; } = null!;
 	public virtual DbSet<StudentCourse> StudentsCourses { get; set; } = null!;
 
-	protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        if (!optionsBuilder.IsConfigured)
+        {
+            optionsBuilder.UseSqlServer("Server=.;Database=StudentSystem;Integrated Security=True;TrustServerCertificate=true");
+        }
+
+        base.OnConfiguring(optionsBuilder);
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
 		modelBuilder.Entity<Course>(entity =>
 		{
