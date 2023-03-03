@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicHub", "02. Albums Info\MusicHub.csproj", "{7923F841-CF63-4734-A60A-45518BD736B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicHub", "03. Songs Above Duration\MusicHub.csproj", "{3E9AE29B-1BC8-42F1-B511-0E89D78FBA49}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7923F841-CF63-4734-A60A-45518BD736B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7923F841-CF63-4734-A60A-45518BD736B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7923F841-CF63-4734-A60A-45518BD736B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7923F841-CF63-4734-A60A-45518BD736B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E9AE29B-1BC8-42F1-B511-0E89D78FBA49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E9AE29B-1BC8-42F1-B511-0E89D78FBA49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E9AE29B-1BC8-42F1-B511-0E89D78FBA49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E9AE29B-1BC8-42F1-B511-0E89D78FBA49}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {4F71B19C-BE93-4179-8653-FF69B22C102D}
+		SolutionGuid = {7B20807C-9C0D-4A07-AB74-8D60A6E198AB}
 	EndGlobalSection
 EndGlobal
