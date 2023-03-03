@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Text;
 using Data;
 using Initializer;
+using Microsoft.EntityFrameworkCore;
 
 public class StartUp
 {
