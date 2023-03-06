@@ -3,6 +3,7 @@
     using BookShop.Models.Enums;
     using Data;
     using Initializer;
+    using Microsoft.EntityFrameworkCore;
     using System.Text;
 
     public class StartUp
@@ -20,26 +21,15 @@
 
         public static string GetBooksByAgeRestriction(BookShopContext context, string command)
         {
-            StringBuilder output = new StringBuilder();
+            var bookTitles = context.Books
+                .AsNoTracking()
+                .ToArray()
+                .Where(b => b.AgeRestriction.ToString().ToLower() == command.ToLower())
+                .Select(b => b.Title)
+                .OrderBy(b => b)
+                .ToArray();
 
-            Enum.TryParse<AgeRestriction>(command, true, out AgeRestriction ageRestriction);
-
-            var booksTitles = context.Books
-                               .ToArray()
-                               .Where(b => b.AgeRestriction == ageRestriction)
-                               .Select(b => new
-                               {
-                                   b.Title
-                               })
-                               .OrderBy(b => b.Title)
-                               .ToArray();
-
-            foreach (var book in booksTitles)
-            {
-                output.AppendLine(book.Title);
-            }
-
-            return output.ToString().TrimEnd();
+            return string.Join(Environment.NewLine, bookTitles).Trim();
         }
     }
 }
