@@ -1,8 +1,9 @@
 ﻿using Newtonsoft.Json;
+using ProductShop.Models;
+using System.Text.Json.Serialization;
 
 namespace ProductShop.DTOs.Import;
 
-[JsonObject]
 public class ImportCategoriesProductDTO
 {
     [JsonProperty("CategoryId")]
