@@ -1,6 +1,11 @@
-﻿namespace ProductShop.DTOs.Import;
+﻿using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
+namespace ProductShop.DTOs.Import;
+
+[JsonObject]
 public class ImportCatergoryDTO
 {
-    public string Name { get; set; } = null!;
+    [JsonProperty("name")]
+    public string? Name { get; set; }
 }
