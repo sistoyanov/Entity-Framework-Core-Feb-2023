@@ -31,18 +31,26 @@ public class StartUp
     public static string GetCategoriesByProductsCount(ProductShopContext context)
     {
 
-        var categories = context.Categories
+        //var categories = context.Categories
+        //    .AsNoTracking()
+        //    .OrderByDescending(c => c.CategoriesProducts.Count())
+        //    .Select(c => new
+        //    {
+        //        category = c.Name,
+        //        productsCount = c.CategoriesProducts.Count(),
+        //        averagePrice = c.CategoriesProducts.Average(cp => cp.Product.Price).ToString("f2"),
+        //        totalRevenue = c.CategoriesProducts.Sum(cp => cp.Product.Price).ToString("f2")
+        //    })
+        //    .ToArray();
+
+        IMapper mapper = MapperProvider();
+
+        ExportCategoriesByProductsCountDTO[] categoriesByProductsCountDTOs = context.Categories
             .AsNoTracking()
             .OrderByDescending(c => c.CategoriesProducts.Count())
-            .Select(c => new
-            {
-                category = c.Name,
-                productsCount = c.CategoriesProducts.Count(),
-                averagePrice = c.CategoriesProducts.Average(cp => cp.Product.Price).ToString("f2"),
-                totalRevenue = c.CategoriesProducts.Sum(cp => cp.Product.Price).ToString("f2")
-            })
+            .ProjectTo<ExportCategoriesByProductsCountDTO>(mapper.ConfigurationProvider)
             .ToArray();
 
-        return JsonConvert.SerializeObject(categories, Formatting.Indented);
+        return JsonConvert.SerializeObject(categoriesByProductsCountDTOs, Formatting.Indented);
     }
 }
