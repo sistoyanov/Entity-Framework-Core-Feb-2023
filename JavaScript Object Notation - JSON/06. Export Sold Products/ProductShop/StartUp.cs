@@ -30,40 +30,37 @@ public class StartUp
 
     public static string GetSoldProducts(ProductShopContext context)
     {
-        // IMapper mapper = MapperProvider();
+        IMapper mapper = MapperProvider();
 
-        //ExportUserDTO[] usersDTO = context.Users
-        //     .AsNoTracking()
-        //     //.Include(p => p.ProductsSold)
-        //     .Where(u => u.ProductsSold.Any(p => p.Buyer != null))
-        //     .OrderBy(u => u.LastName)
-        //     .ThenBy(u => u.FirstName)
-        //     .ToArray()
-        //     .Where(u => u.)
-        //     .ProjectTo<ExportUserDTO>(mapper.ConfigurationProvider)
-        //     .ToArray();
-
-        var usersDTO = context.Users
+        ExportUserDTO[] usersDTO = context.Users
              .AsNoTracking()
              .Where(u => u.ProductsSold.Any(p => p.Buyer != null))
              .OrderBy(u => u.LastName)
              .ThenBy(u => u.FirstName)
-             .Select(u => new 
-             {
-                 firstName = u.FirstName,
-                 lastName = u.LastName,
-                 soldProducts = u.ProductsSold
-                       .Where(p => p.Buyer != null)
-                       .Select(p => new
-                       {
-                           name = p.Name,
-                           price = p.Price,
-                           buyerFirstName = p.Buyer.FirstName,
-                           buyerLastName = p.Buyer.LastName
-                       })
-                       .ToArray()
-             })
+             .ProjectTo<ExportUserDTO>(mapper.ConfigurationProvider)
              .ToArray();
+
+        //var usersDTO = context.Users
+        //     .AsNoTracking()
+        //     .Where(u => u.ProductsSold.Any(p => p.Buyer != null))
+        //     .OrderBy(u => u.LastName)
+        //     .ThenBy(u => u.FirstName)
+        //     .Select(u => new 
+        //     {
+        //         firstName = u.FirstName,
+        //         lastName = u.LastName,
+        //         soldProducts = u.ProductsSold
+        //               .Where(p => p.Buyer != null)
+        //               .Select(p => new
+        //               {
+        //                   name = p.Name,
+        //                   price = p.Price,
+        //                   buyerFirstName = p.Buyer.FirstName,
+        //                   buyerLastName = p.Buyer.LastName
+        //               })
+        //               .ToArray()
+        //     })
+        //     .ToArray();
 
         return JsonConvert.SerializeObject(usersDTO, Formatting.Indented);
     }

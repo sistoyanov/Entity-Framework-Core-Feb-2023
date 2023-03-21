@@ -2,7 +2,7 @@
 
 namespace ProductShop.DTOs.Export;
 
-[JsonArray]
+[JsonObject]
 public class ExportSoldProductDTO
 {
     [JsonProperty("name")]

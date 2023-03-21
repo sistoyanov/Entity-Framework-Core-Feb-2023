@@ -16,7 +16,7 @@ public class StartUp
     public static void Main()
     {
         ProductShopContext context = new ProductShopContext();
-        Console.WriteLine(GetSoldProducts(context));
+        Console.WriteLine(GetCategoriesByProductsCount(context));
 
     }
 
@@ -28,43 +28,21 @@ public class StartUp
         return mapper;
     }
 
-    public static string GetSoldProducts(ProductShopContext context)
+    public static string GetCategoriesByProductsCount(ProductShopContext context)
     {
-        // IMapper mapper = MapperProvider();
 
-        //ExportUserDTO[] usersDTO = context.Users
-        //     .AsNoTracking()
-        //     //.Include(p => p.ProductsSold)
-        //     .Where(u => u.ProductsSold.Any(p => p.Buyer != null))
-        //     .OrderBy(u => u.LastName)
-        //     .ThenBy(u => u.FirstName)
-        //     .ToArray()
-        //     .Where(u => u.)
-        //     .ProjectTo<ExportUserDTO>(mapper.ConfigurationProvider)
-        //     .ToArray();
+        var categories = context.Categories
+            .AsNoTracking()
+            .OrderByDescending(c => c.CategoriesProducts.Count())
+            .Select(c => new
+            {
+                category = c.Name,
+                productsCount = c.CategoriesProducts.Count(),
+                averagePrice = c.CategoriesProducts.Average(cp => cp.Product.Price).ToString("f2"),
+                totalRevenue = c.CategoriesProducts.Sum(cp => cp.Product.Price).ToString("f2")
+            })
+            .ToArray();
 
-        var usersDTO = context.Users
-             .AsNoTracking()
-             .Where(u => u.ProductsSold.Any(p => p.Buyer != null))
-             .OrderBy(u => u.LastName)
-             .ThenBy(u => u.FirstName)
-             .Select(u => new 
-             {
-                 firstName = u.FirstName,
-                 lastName = u.LastName,
-                 soldProducts = u.ProductsSold
-                       .Where(p => p.Buyer != null)
-                       .Select(p => new
-                       {
-                           name = p.Name,
-                           price = p.Price,
-                           buyerFirstName = p.Buyer.FirstName,
-                           buyerLastName = p.Buyer.LastName
-                       })
-                       .ToArray()
-             })
-             .ToArray();
-
-        return JsonConvert.SerializeObject(usersDTO, Formatting.Indented);
+        return JsonConvert.SerializeObject(categories, Formatting.Indented);
     }
 }
