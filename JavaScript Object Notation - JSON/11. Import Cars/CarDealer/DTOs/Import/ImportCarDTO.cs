@@ -12,7 +12,7 @@ public class ImportCarDTO
     public string Model { get; set; } = null!;
 
     [JsonProperty("traveledDistance")]
-    public long TraveledDistance { get; set; }
+    public long TravelledDistance { get; set; }
 
     [JsonProperty("partsId")]
     public ICollection<int>? PartsId { get; set; }

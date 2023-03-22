@@ -29,37 +29,6 @@ public class StartUp
     public static string ImportCars(CarDealerContext context, string inputJson)
     {
         ImportCarDTO[] importCarDTOs = JsonConvert.DeserializeObject<ImportCarDTO[]>(inputJson)!;
-        //IMapper mapper = MapperProvider();
-
-        //Car[] cars = mapper.Map<Car[]>(carDTOs);
-
-        //ICollection<Car> cars = new HashSet<Car>();
-        //ICollection<PartCar> partsCars = new HashSet<PartCar>();
-
-        //foreach (ImportCarDTO importCar in iportCars)
-        //{
-        //    Car car = new Car()
-        //    {
-        //        Make = importCar.Make,
-        //        Model = importCar.Model,
-        //        TraveledDistance= importCar.TraveledDistance
-        //    };
-
-        //    cars.Add(car);
-
-        //    foreach (int partId in importCar.PartsId!)
-        //    {
-
-        //        PartCar partCar = new PartCar()
-        //        {
-        //            CarId = car.Id,
-        //            PartId = partId
-        //        };
-
-        //        partsCars.Add(partCar);
-        //    }
-
-        //}
 
         foreach (var importCar in importCarDTOs)
         {
@@ -67,10 +36,8 @@ public class StartUp
             {
                 Make = importCar.Make,
                 Model = importCar.Model,
-                TraveledDistance = importCar.TraveledDistance
+                TraveledDistance = importCar.TravelledDistance
             };
-
-            //cars.Add(car);
 
             context.Cars.Add(car);
             context.SaveChanges();
@@ -88,17 +55,12 @@ public class StartUp
                             PartId = partId
                         };
 
-                        //partsCars.Add(partCar);
                         context.PartsCars.Add(partCar);
                         context.SaveChanges();
                     }
                 }
             }
         }
-
-        //context.Cars.AddRange(cars);
-        //context.PartsCars.AddRange(partsCars);
-        //context.SaveChanges();
 
         return $"Successfully imported {importCarDTOs.Length}.";
     }
