@@ -11,6 +11,6 @@ public class ExportProductDTO
     [XmlElement("price")]
     public decimal Price { get; set; }
 
-    [XmlElement("buyer")]
-    public string? Buyer { get; set; }
+    //[XmlElement("buyer")]
+    //public string? Buyer { get; set; }
 }
