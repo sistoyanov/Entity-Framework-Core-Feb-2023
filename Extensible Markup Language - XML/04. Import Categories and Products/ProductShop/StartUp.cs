@@ -33,8 +33,8 @@ public class StartUp
 
         foreach (var categoryProduct in categoryProductDTOs)
         {
-            if (context.CategoryProducts.Any(cp => cp.CategoryId != categoryProduct.CategoryId) ||
-                context.CategoryProducts.Any(cp => cp.ProductId != categoryProduct.ProductId))
+            if (!context.Categories.Any(c => c.Id == categoryProduct.CategoryId) ||
+                !context.Products.Any(p => p.Id == categoryProduct.ProductId))
             {
                 continue;
             }
