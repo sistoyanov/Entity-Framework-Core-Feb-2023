@@ -11,8 +11,8 @@ using Trucks.Data;
 namespace Trucks.Migrations
 {
     [DbContext(typeof(TrucksContext))]
-    [Migration("20230325072121_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20230325074353_InitilaMigration")]
+    partial class InitilaMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
