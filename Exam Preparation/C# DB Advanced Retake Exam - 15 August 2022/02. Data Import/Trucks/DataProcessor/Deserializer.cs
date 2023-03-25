@@ -86,6 +86,7 @@
             ImportClientDTO[] clientDTOs = JsonConvert.DeserializeObject<ImportClientDTO[]>(jsonString)!;
 
             List<Client> clients = new List<Client>();
+            List<ClientTruck> clientTrucks = new List<ClientTruck>();
 
             foreach (ImportClientDTO clientDTO in clientDTOs)
             {
@@ -113,6 +114,7 @@
                     }
 
                     ClientTruck clientTruck = new ClientTruck() { Truck = truck };
+                    clientTrucks.Add(clientTruck);
                     client.ClientsTrucks.Add(clientTruck);
                 }
 
@@ -120,6 +122,7 @@
                 output.AppendLine(String.Format(SuccessfullyImportedClient, client.Name, client.ClientsTrucks.Count));
             }
 
+            context.ClientsTrucks.AddRange(clientTrucks);
             context.Clients.AddRange(clients);
             context.SaveChanges();
 
