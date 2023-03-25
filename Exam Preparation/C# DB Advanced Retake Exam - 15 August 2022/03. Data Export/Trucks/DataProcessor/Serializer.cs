@@ -27,6 +27,7 @@
             return XmlHelper.Serialize(despatchers, "Despatchers");
         }
 
+        //[JsonConverter(typeof(StringEnumConverter))]
         public static string ExportClientsWithMostTrucks(TrucksContext context, int capacity)
         {
             var clients = context.Clients
