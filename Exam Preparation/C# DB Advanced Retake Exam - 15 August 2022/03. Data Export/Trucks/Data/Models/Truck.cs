@@ -16,18 +16,19 @@ public class Truck
     public int Id { get; set; }
 
     [Required]
-    [MaxLength(8)]
-    [MinLength(8)]
+    [StringLength(8)]
     [RegularExpression("^[A-Z]{2}\\d{4}[A-Z]{2}$")]
     public string RegistrationNumber { get; set; } = null!;
 
     [Required]
-    [MaxLength(17)]
-    [MinLength(17)]
+    [StringLength(17)]
+
     public string VinNumber { get; set; } = null!;
 
+    [Range(950, 1420)]
     public int TankCapacity  { get; set; }
 
+    [Range(5000, 29_000)]
     public int CargoCapacity  { get; set; }
 
     [Required]

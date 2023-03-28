@@ -34,12 +34,6 @@
                     continue;
                 }
 
-                if (string.IsNullOrEmpty(DespatcherDTO.Position))
-                {
-                    output.AppendLine(ErrorMessage);
-                    continue;
-                }
-
                 Despatcher despatcher = new Despatcher()
                 {
                     Name = DespatcherDTO.Name,

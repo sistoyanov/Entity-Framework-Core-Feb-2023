@@ -13,6 +13,7 @@ namespace Trucks.DataProcessor.ImportDto
         public string Name { get; set; } = null!;
 
         [XmlElement("Position")]
+        [Required]
         public string? Position { get; set; }
 
         [XmlArray("Trucks")]
