@@ -4,8 +4,10 @@ namespace Artillery.DataProcessor
     using Artillery.Data;
     using Artillery.Data.Models;
     using Artillery.Data.Models.Enums;
+    using Artillery.DataProcessor.ExportDto;
     using Microsoft.EntityFrameworkCore;
     using Newtonsoft.Json;
+    using ProductShop.Utilities;
 
     public class Serializer
     {
@@ -42,7 +44,31 @@ namespace Artillery.DataProcessor
 
         public static string ExportGuns(ArtilleryContext context, string manufacturer)
         {
-            throw new NotImplementedException();
+            var guns = context.Guns
+                .AsNoTracking()
+                .Where(g => g.Manufacturer.ManufacturerName.ToLower() == manufacturer.ToLower())
+                //.ToArray()
+                .Select(g => new ExportGunDTO 
+                { 
+                    Manufacturer = g.Manufacturer.ManufacturerName,
+                    GunType = g.GunType,
+                    GunWeight = g.GunWeight,
+                    BarrelLength = g.BarrelLength,
+                    Range = g.Range,
+                    Countries = g.CountriesGuns
+                        .Where(cg => cg.Country.ArmySize > 4_500_000)
+                        .Select(cg => new ExportCountryDTO 
+                        {
+                            Country = cg.Country.CountryName,
+                            ArmySize = cg.Country.ArmySize.ToString()
+                        })
+                        .OrderBy(cg => cg.ArmySize)
+                        .ToArray()
+                })
+                .OrderBy(g => g.BarrelLength)
+                .ToArray();
+            
+            return XmlHelper.Serialize(guns, "Guns");
         }
     }
 }
