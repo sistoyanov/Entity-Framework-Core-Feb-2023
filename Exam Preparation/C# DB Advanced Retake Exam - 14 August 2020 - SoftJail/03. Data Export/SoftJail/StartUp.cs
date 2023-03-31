@@ -19,7 +19,7 @@
             var projectDir = GetProjectDirectory();
 
             ImportEntities(context, projectDir + @"Datasets/", projectDir + @"ImportResults/");
-            ExportEntities(context, projectDir + @"ExportResults/");
+            //ExportEntities(context, projectDir + @"ExportResults/");
 
             using (var transaction = context.Database.BeginTransaction())
             {
@@ -43,17 +43,16 @@
             PrintAndExportEntityToFile(officersPrisoners, exportDir + "ImportOfficersPrisoners.txt");
         }
 
-        private static void ExportEntities(SoftJailDbContext context, string exportDir)
-        {
-            var jsonOutput = DataProcessor.Serializer.ExportPrisonersByCells(context, new[] { 1, 5, 7, 3 });
-            Console.WriteLine(jsonOutput);
-            File.WriteAllText(exportDir + "PrisonersByCells.json", jsonOutput);
+        //private static void ExportEntities(SoftJailDbContext context, string exportDir)
+        //{
+        //    var jsonOutput = DataProcessor.Serializer.ExportPrisonersByCells(context, new[] { 1, 5, 7, 3 });
+        //    Console.WriteLine(jsonOutput);
+        //    File.WriteAllText(exportDir + "PrisonersByCells.json", jsonOutput);
 
-            var xmlOutput = DataProcessor.Serializer.ExportPrisonersInbox(context, "Melanie Simonich,Diana Ebbs,Binni Cornhill");
-            Console.WriteLine(xmlOutput);
-            File.WriteAllText(exportDir + "PrisonersInbox.xml", xmlOutput);
-        }
-
+        //    var xmlOutput = DataProcessor.Serializer.ExportPrisonersInbox(context, "Melanie Simonich,Diana Ebbs,Binni Cornhill");
+        //    Console.WriteLine(xmlOutput);
+        //    File.WriteAllText(exportDir + "PrisonersInbox.xml", xmlOutput);
+        //}
         private static void ResetDatabase(SoftJailDbContext context, bool shouldDropDatabase = false)
         {
             if (shouldDropDatabase)
