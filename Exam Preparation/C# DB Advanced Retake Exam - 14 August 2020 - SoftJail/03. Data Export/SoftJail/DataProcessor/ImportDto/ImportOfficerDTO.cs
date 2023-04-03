@@ -21,16 +21,16 @@ public class ImportOfficerDTO
 
     [XmlElement("Position")]
     [Required]
-    public string Position { get; set; }
+    public string Position { get; set; } = null!;
 
     [XmlElement("Weapon")]
     [Required]
-    public string Weapon { get; set; }
+    public string Weapon { get; set; } = null!;
 
     [XmlElement("DepartmentId")]
     [Required]
     public int DepartmentId { get; set; }
 
     [XmlArray("Prisoners")]
-    public ImportOfficerPrisonerDTO[] Prisoners { get; set; }
+    public ImportOfficerPrisonerDTO[] Prisoners { get; set; } = null!;
 }
